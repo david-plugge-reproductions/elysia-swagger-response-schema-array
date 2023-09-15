@@ -1,15 +1,72 @@
-# Elysia with Bun runtime
+# Elysia swagger malformed response schema
 
-## Getting Started
-To get started with this template, simply paste this command into your terminal:
-```bash
-bun create elysia ./elysia-example
+Posts schema:
+
+```json
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "title": {
+                "type": "string"
+            }
+        },
+        "required": ["title"]
+    }
+}
 ```
 
-## Development
-To start the development server run:
-```bash
-bun run dev
+Generated Posts response schema:
+
+```json
+{
+    "responses": {
+        "200": {
+            "items": {
+                "type": "object",
+                "properties": {
+                    "title": {
+                        "type": "string"
+                    }
+                },
+                "required": ["title"]
+            },
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "array"
+                    }
+                }
+            }
+        }
+    }
+}
 ```
 
-Open http://localhost:3000/ with your browser to see the result.
+The expected schema is:
+
+```json
+{
+    "responses": {
+        "200": {
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "title": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": ["title"]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+```
